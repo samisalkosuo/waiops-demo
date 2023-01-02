@@ -17,13 +17,13 @@
   - name: Create a new xfs primary partition
     community.general.parted:
       device: /dev/sda
-      number: 'addition{{ partitions + 1 }}'
+      number: '{{ partitions|int + 1 }}'
       state: present
-      fs_type: xfs
+      fs_type: xfs  
   - name: Extend an existing partition to fill all available space
     community.general.parted:
       device: /dev/sda
-      number: 'addition{{ partitions + 1 }}'
+      number: '{{ partitions|int + 1 }}'
       part_end: "100%"
       resize: true
       state: present
