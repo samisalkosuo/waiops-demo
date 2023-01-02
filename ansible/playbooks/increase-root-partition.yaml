@@ -1,0 +1,14 @@
+---
+- name: Increase root partition to use all space
+  tasks:
+  - name: install parted
+    dnf: 
+      name: "parted" 
+      state: present
+  - name: Extend an existing partition to fill all available space
+    community.general.parted:
+      device: /dev/sdb
+      number: "{{ sdb_info.partitions | length }}"
+      part_end: "100%"
+      resize: true
+      state: present
