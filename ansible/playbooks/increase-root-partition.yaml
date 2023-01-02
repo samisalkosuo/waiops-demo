@@ -14,7 +14,7 @@
   - name: Get number of partitions
     ansible.builtin.set_fact:
       partitions: "{{ sda_info.partitions | length }}"
-   name: Create a new xfs primary partition
+  - name: Create a new xfs primary partition
     community.general.parted:
       device: /dev/sda
       number: "{{ partitions + 1 }}"
