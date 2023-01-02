@@ -9,15 +9,16 @@
       state: present
   # Read info sda and reuse it in subsequent task
   - name: Read device information (always use unit when probing)
-    community.general.parted: device=/dev/sda unit=MiB
+    community.general.parted: 
+      device=/dev/sda 
+      unit=MiB
     register: sda_info
-  - name: Get number of partitions
-    ansible.builtin.set_fact:
-      partitions: "{{ sda_info.partitions | length }}"
   - name: Extend an existing partition to fill all available space
     community.general.parted:
       device: /dev/sda
-      number: '{{ partitions|int + 1 }}'
+      label: gpt
+      number: '{{ sda_info.partitions | length }}'
+      unit: MiB
       part_end: "100%"
       resize: true
       state: present
