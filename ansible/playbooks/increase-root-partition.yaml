@@ -7,10 +7,14 @@
     dnf: 
       name: "parted" 
       state: present
+  # Read info sda and reuse it in subsequent task
+  - name: Read device information (always use unit when probing)
+    community.general.parted: device=/dev/sda unit=MiB
+    register: sda_info
   - name: Extend an existing partition to fill all available space
     community.general.parted:
-      device: /dev/sdb
-      number: "{{ sdb_info.partitions | length }}"
+      device: /dev/sda
+      number: "{{ sda_info.partitions | length }}"
       part_end: "100%"
       resize: true
       state: present
