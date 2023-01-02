@@ -1,0 +1,11 @@
+---
+- name: Install Package
+  hosts: all
+  vars:
+  - package_name: tmux
+  tasks:
+  - name: install package {{ package_name }}
+    dnf: 
+      name: "{{ package_name }}" 
+      state: present
+

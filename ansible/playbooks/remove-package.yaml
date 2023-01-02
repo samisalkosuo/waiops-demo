@@ -1,0 +1,11 @@
+---
+- name: Remove Package
+  hosts: all
+  vars:
+  - package_name: tmux
+  tasks:
+  - name: remove  package {{ package_name }}
+    dnf: 
+      name: "{{ package_name }}" 
+      state: absent
+
