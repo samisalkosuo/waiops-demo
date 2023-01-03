@@ -1,0 +1,9 @@
+- name: Cloud-init workaround (https://kb.vmware.com/s/article/71264)
+  hosts: all
+
+  tasks:
+  - name: set manual-cache-clean to true
+    lineinfile:
+      path: /etc/cloud/cloud.cfg
+      line: 'manual_cache_clean: true'
+
