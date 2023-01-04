@@ -406,7 +406,7 @@
                   "inventory_name": "${templates.inventorccb7148d.output.inventory_name}",
                   "credential_name": "${input_parameters.credential-name}",
                   "extra_variables": {},
-                  "limit": ""
+                  "limit": "1"
                 },
                 "outputs": [
                   "job_status"
@@ -432,7 +432,7 @@
                   "inventory_name": "${templates.inventorccb7148d.output.inventory_name}",
                   "credential_name": "${input_parameters.credential-name}",
                   "extra_variables": {},
-                  "limit": ""
+                  "limit": "1"
                 },
                 "outputs": [
                   "job_status"
@@ -458,7 +458,7 @@
                   "inventory_name": "${templates.inventorccb7148d.output.inventory_name}",
                   "credential_name": "${input_parameters.credential-name}",
                   "extra_variables": {},
-                  "limit": ""
+                  "limit": "1"
                 },
                 "outputs": [
                   "job_status"
