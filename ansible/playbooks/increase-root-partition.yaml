@@ -1,4 +1,6 @@
 ---
+# adapted from https://www.epilis.gr/en/blog/2017/08/09/extending-root-fs-whole-farm/
+# NOTE: vars vg_name and lv_name are different when using Red Hat, CentOS or other Linux distro
 - name: Extend root partition to fill all available space
   hosts: all
   vars:
