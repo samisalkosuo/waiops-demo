@@ -1,0 +1,52 @@
+{
+    "name": "phpipam-info",
+    "label": "phpIPAM Information",
+    "description": "Info about phpIPAM. URL (including /api/<appname>, for example http://phpipam/api/appname), user and password.",
+    "attributes": [
+      {
+        "name": "url",
+        "type": "string",
+        "description": "",
+        "label": "API URL",
+        "range": null,
+        "regex": null,
+        "regexdesc": null,
+        "required": "true",
+        "secured": "false",
+        "immutable": "false",
+        "hidden": "false",
+        "default": "",
+        "options": null
+      },
+      {
+        "name": "user",
+        "type": "string",
+        "description": "",
+        "label": "User name",
+        "range": null,
+        "regex": null,
+        "regexdesc": null,
+        "required": "true",
+        "secured": "false",
+        "immutable": "false",
+        "hidden": "false",
+        "default": "",
+        "options": null
+      },
+      {
+        "name": "password",
+        "type": "password",
+        "description": "",
+        "label": "Password",
+        "range": null,
+        "regex": "",
+        "regexdesc": null,
+        "required": "true",
+        "secured": "true",
+        "immutable": "false",
+        "hidden": "false",
+        "default": "",
+        "options": null
+      }
+    ]
+  }
