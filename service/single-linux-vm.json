@@ -145,7 +145,7 @@
           },
           {
             "name": "network-cidr",
-            "label": "Network CIDR",
+            "label": "Network",
             "customtype": "string",
             "type": "string",
             "immutable": false,
@@ -167,7 +167,8 @@
                 "value": "192.168.47.88/29",
                 "default": false
               }
-            ]
+            ],
+            "description": ""
           },
           {
             "name": "template-name",
@@ -280,6 +281,28 @@
             "editable": false,
             "default": "phpipam-forum",
             "datatype": "phpipam-info"
+          },
+          {
+            "name": "vmsphere-info",
+            "label": "VSphere info",
+            "customtype": "map",
+            "type": "map",
+            "immutable": true,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "VSphere data center information.",
+            "isDynamic": false,
+            "editable": false,
+            "default": {
+              "cluster": "Cluster1",
+              "datacenter": "DC2R4",
+              "datastore": "Storwize2",
+              "resourcepool": "InfraResourcePool",
+              "folder": "OCP-08/MCM"
+            },
+            "passbyname": false,
+            "dynamicDetails": {}
           }
         ],
         "flow": {
@@ -326,12 +349,12 @@
                     "forum.fi.ibm.com"
                   ],
                   "vm_1-firmware": "efi",
-                  "vm_1_root_disk_keep_on_remove": "true",
+                  "vm_1_root_disk_keep_on_remove": "false",
                   "vm_1_domain": "forum.fi.ibm.com",
                   "vm_1-image": "${input_parameters.template-name}",
                   "vm_1_root_disk_size": "${input_parameters.vm-spec-disk-gb}",
                   "vm_1_root_disk_controller_type": "scsi",
-                  "vm_1_root_disk_datastore": "Storwize2",
+                  "vm_1_root_disk_datastore": "${input_parameters.vmsphere-info.datastore}",
                   "vm_1_root_disk_type": "thin",
                   "vm_1_ipv4_gateway": "192.168.47.2",
                   "vm_1_ipv4_address": "${resthooks.resthookfb3ed565.body.data}",
@@ -339,11 +362,11 @@
                   "vm_1_ipv4_prefix_length": "24",
                   "vm_1_number_of_vcpu": "${input_parameters.vm-spec-cpu-count}",
                   "vm_1_network_interface_label": "OCP-07 Network 47",
-                  "vm_1_cluster": "Cluster1",
-                  "vm_1_datacenter": "DC2R4",
-                  "vm_1_folder": "OCP-08/MCM",
+                  "vm_1_cluster": "${input_parameters.vmsphere-info.cluster}",
+                  "vm_1_datacenter": "${input_parameters.vmsphere-info.datacenter}",
+                  "vm_1_folder": "${input_parameters.vmsphere-info.folder}",
                   "vm_1_adapter_type": "vmxnet3",
-                  "vm_1_resource_pool": "InfraResourcePool"
+                  "vm_1_resource_pool": "${input_parameters.vmsphere-info.resourcepool}"
                 },
                 "outputs": [
                   "vm_1_ip-address"
@@ -560,7 +583,7 @@
                   "subnetId": "${resthooks.resthooka8579931.body.data[0].id}"
                 },
                 "on_destroy": {
-                  "url": "${datatypes.phpipam-info.url}/addresses/${resthooks.resthookfb3ed565.body.data}/${resthooks.resthooka8579931.body.data[0].id}",
+                  "url": "${datatypes.phpipam-info.url}/addresses/${templates.singleliea1b82d1.output.vm_1_ip-address}/${resthooks.resthooka8579931.body.data[0].id}",
                   "headers": {
                     "accept": "application/json",
                     "Content-Type": "application/json",
@@ -634,32 +657,6 @@
             "secured": false,
             "isDynamic": false,
             "editable": true
-          },
-          {
-            "name": "network-cidr",
-            "label": "Network CIDR",
-            "customtype": "string",
-            "type": "string",
-            "immutable": false,
-            "hidden": false,
-            "required": true,
-            "secured": false,
-            "isDynamic": false,
-            "editable": false,
-            "passbyname": false,
-            "dynamicDetails": {},
-            "options": [
-              {
-                "label": "Customer A",
-                "value": "192.168.47.80/29",
-                "default": true
-              },
-              {
-                "label": "Customer B",
-                "value": "192.168.47.88/29",
-                "default": false
-              }
-            ]
           },
           {
             "name": "template-name",
@@ -818,32 +815,6 @@
             "editable": true
           },
           {
-            "name": "network-cidr",
-            "label": "Network CIDR",
-            "customtype": "string",
-            "type": "string",
-            "immutable": false,
-            "hidden": false,
-            "required": true,
-            "secured": false,
-            "isDynamic": false,
-            "editable": false,
-            "passbyname": false,
-            "dynamicDetails": {},
-            "options": [
-              {
-                "label": "Customer A",
-                "value": "192.168.47.80/29",
-                "default": true
-              },
-              {
-                "label": "Customer B",
-                "value": "192.168.47.88/29",
-                "default": false
-              }
-            ]
-          },
-          {
             "name": "template-name",
             "customtype": "string",
             "type": "string",
@@ -972,32 +943,6 @@
             "editable": true
           },
           {
-            "name": "network-cidr",
-            "label": "Network CIDR",
-            "customtype": "string",
-            "type": "string",
-            "immutable": false,
-            "hidden": false,
-            "required": true,
-            "secured": false,
-            "isDynamic": false,
-            "editable": false,
-            "passbyname": false,
-            "dynamicDetails": {},
-            "options": [
-              {
-                "label": "Customer A",
-                "value": "192.168.47.80/29",
-                "default": true
-              },
-              {
-                "label": "Customer B",
-                "value": "192.168.47.88/29",
-                "default": false
-              }
-            ]
-          },
-          {
             "name": "template-name",
             "customtype": "string",
             "type": "string",
@@ -1112,6 +1057,88 @@
             "isDynamic": false,
             "editable": false,
             "default": "200"
+          },
+          {
+            "name": "vm-name",
+            "label": "VM host name",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "isDynamic": false,
+            "editable": true
+          },
+          {
+            "name": "template-name",
+            "customtype": "string",
+            "type": "string",
+            "immutable": true,
+            "hidden": true,
+            "required": false,
+            "secured": false,
+            "isDynamic": false,
+            "editable": false,
+            "default": "rocky-8.7-template-v2",
+            "label": "Template name",
+            "passbyname": false,
+            "dynamicDetails": {}
+          },
+          {
+            "name": "credential-name",
+            "label": "Credential name",
+            "customtype": "string",
+            "type": "string",
+            "immutable": true,
+            "hidden": true,
+            "required": false,
+            "secured": false,
+            "isDynamic": false,
+            "editable": true,
+            "default": "Rocky Linux Credential",
+            "passbyname": false,
+            "dynamicDetails": {}
+          },
+          {
+            "name": "is-install-httpd",
+            "label": "Install HTTPD?",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "isDynamic": false,
+            "editable": true,
+            "options": [
+              {
+                "label": "yes",
+                "value": "yes",
+                "default": true
+              },
+              {
+                "label": "no",
+                "value": "no",
+                "default": false
+              }
+            ],
+            "passbyname": false,
+            "dynamicDetails": {}
+          },
+          {
+            "name": "phpipam-info",
+            "label": "phpIPAM info",
+            "customtype": "sharedparameter",
+            "type": "sharedparameter",
+            "immutable": true,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "isDynamic": false,
+            "editable": false,
+            "default": "phpipam-forum",
+            "datatype": "phpipam-info"
           }
         ]
       }
