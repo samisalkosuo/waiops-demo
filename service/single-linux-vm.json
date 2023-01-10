@@ -583,7 +583,7 @@
                   "subnetId": "${resthooks.resthooka8579931.body.data[0].id}"
                 },
                 "on_destroy": {
-                  "url": "${datatypes.phpipam-info.url}/addresses/${templates.singleliea1b82d1.output.vm_1_ip-address}/${resthooks.resthooka8579931.body.data[0].id}",
+                  "url": "${datatypes.phpipam-info.url}/addresses/${resthooks.resthookfb3ed565.body.data}/${resthooks.resthooka8579931.body.data[0].id}",
                   "headers": {
                     "accept": "application/json",
                     "Content-Type": "application/json",
@@ -755,6 +755,55 @@
             "editable": false,
             "default": "phpipam-forum",
             "datatype": "phpipam-info"
+          },
+          {
+            "name": "network-cidr",
+            "label": "Network",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "isDynamic": false,
+            "editable": false,
+            "passbyname": false,
+            "dynamicDetails": {},
+            "options": [
+              {
+                "label": "Customer A",
+                "value": "192.168.47.80/29",
+                "default": true
+              },
+              {
+                "label": "Customer B",
+                "value": "192.168.47.88/29",
+                "default": false
+              }
+            ],
+            "description": ""
+          },
+          {
+            "name": "vmsphere-info",
+            "label": "VSphere info",
+            "customtype": "map",
+            "type": "map",
+            "immutable": true,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "VSphere data center information.",
+            "isDynamic": false,
+            "editable": false,
+            "default": {
+              "cluster": "Cluster1",
+              "datacenter": "DC2R4",
+              "datastore": "Storwize2",
+              "resourcepool": "InfraResourcePool",
+              "folder": "OCP-08/MCM"
+            },
+            "passbyname": false,
+            "dynamicDetails": {}
           }
         ]
       },
@@ -883,6 +932,55 @@
             "editable": false,
             "default": "phpipam-forum",
             "datatype": "phpipam-info"
+          },
+          {
+            "name": "network-cidr",
+            "label": "Network",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "isDynamic": false,
+            "editable": false,
+            "passbyname": false,
+            "dynamicDetails": {},
+            "options": [
+              {
+                "label": "Customer A",
+                "value": "192.168.47.80/29",
+                "default": true
+              },
+              {
+                "label": "Customer B",
+                "value": "192.168.47.88/29",
+                "default": false
+              }
+            ],
+            "description": ""
+          },
+          {
+            "name": "vmsphere-info",
+            "label": "VSphere info",
+            "customtype": "map",
+            "type": "map",
+            "immutable": true,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "VSphere data center information.",
+            "isDynamic": false,
+            "editable": false,
+            "default": {
+              "cluster": "Cluster1",
+              "datacenter": "DC2R4",
+              "datastore": "Storwize2",
+              "resourcepool": "InfraResourcePool",
+              "folder": "OCP-08/MCM"
+            },
+            "passbyname": false,
+            "dynamicDetails": {}
           }
         ]
       },
@@ -1011,6 +1109,55 @@
             "editable": false,
             "default": "phpipam-forum",
             "datatype": "phpipam-info"
+          },
+          {
+            "name": "network-cidr",
+            "label": "Network",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "isDynamic": false,
+            "editable": false,
+            "passbyname": false,
+            "dynamicDetails": {},
+            "options": [
+              {
+                "label": "Customer A",
+                "value": "192.168.47.80/29",
+                "default": true
+              },
+              {
+                "label": "Customer B",
+                "value": "192.168.47.88/29",
+                "default": false
+              }
+            ],
+            "description": ""
+          },
+          {
+            "name": "vmsphere-info",
+            "label": "VSphere info",
+            "customtype": "map",
+            "type": "map",
+            "immutable": true,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "VSphere data center information.",
+            "isDynamic": false,
+            "editable": false,
+            "default": {
+              "cluster": "Cluster1",
+              "datacenter": "DC2R4",
+              "datastore": "Storwize2",
+              "resourcepool": "InfraResourcePool",
+              "folder": "OCP-08/MCM"
+            },
+            "passbyname": false,
+            "dynamicDetails": {}
           }
         ]
       },
@@ -1139,6 +1286,55 @@
             "editable": false,
             "default": "phpipam-forum",
             "datatype": "phpipam-info"
+          },
+          {
+            "name": "network-cidr",
+            "label": "Network",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "isDynamic": false,
+            "editable": false,
+            "passbyname": false,
+            "dynamicDetails": {},
+            "options": [
+              {
+                "label": "Customer A",
+                "value": "192.168.47.80/29",
+                "default": true
+              },
+              {
+                "label": "Customer B",
+                "value": "192.168.47.88/29",
+                "default": false
+              }
+            ],
+            "description": ""
+          },
+          {
+            "name": "vmsphere-info",
+            "label": "VSphere info",
+            "customtype": "map",
+            "type": "map",
+            "immutable": true,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "VSphere data center information.",
+            "isDynamic": false,
+            "editable": false,
+            "default": {
+              "cluster": "Cluster1",
+              "datacenter": "DC2R4",
+              "datastore": "Storwize2",
+              "resourcepool": "InfraResourcePool",
+              "folder": "OCP-08/MCM"
+            },
+            "passbyname": false,
+            "dynamicDetails": {}
           }
         ]
       }
