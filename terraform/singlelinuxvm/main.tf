@@ -18,6 +18,49 @@ provider "vsphere" {
 provider "camc" {
 }
 
+# Tag support
+module "camtags" {
+  source = "../Modules/camtags"
+}
+
+resource "random_integer" "category_key" {
+  min     = 1
+  max     = 50000
+}
+
+#List of tags that will be added from service
+variable "service_tag_includes" {
+  type = list
+  default = ["environment", "request_user", "service_name"]
+}
+
+#Filter tags passed by service.
+locals {
+
+ taglist = [
+   for cat in var.service_tag_includes : {
+      for k, v in module.camtags.tagsmap : k => v
+      if k  == cat
+  }
+ ]
+
+ tagmap = {
+            for v in local.taglist : keys(v)[0] => values(v)[0]
+            if length(v) > 0
+          }
+}
+
+data "vsphere_tag_category" "category" {
+  count = length(local.tagmap)
+  name  = keys(local.tagmap)[count.index]
+}
+
+data "vsphere_tag" "tag" {
+  count = length(local.tagmap)
+  name = values(local.tagmap)[count.index]
+  category_id = data.vsphere_tag_category.category[count.index].id
+}
+
 ##############################################################
 # Define pattern variables 
 ##############################################################
@@ -62,7 +105,7 @@ resource "vsphere_virtual_machine" "vm_1" {
   guest_id         = data.vsphere_virtual_machine.vm_1_template.guest_id
   scsi_type        = data.vsphere_virtual_machine.vm_1_template.scsi_type
   firmware         = var.vm_1-firmware
-
+  tags             = data.vsphere_tag.tag.*.id
   clone {
     template_uuid = data.vsphere_virtual_machine.vm_1_template.id
 
