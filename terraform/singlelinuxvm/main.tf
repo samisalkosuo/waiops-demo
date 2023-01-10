@@ -23,11 +23,6 @@ module "camtags" {
   source = "../Modules/camtags"
 }
 
-resource "random_integer" "category_key" {
-  min     = 1
-  max     = 50000
-}
-
 #List of tags that will be added from service
 variable "service_tag_includes" {
   type = list
@@ -35,6 +30,7 @@ variable "service_tag_includes" {
 }
 
 #Filter tags passed by service.
+#create local variables from tags
 locals {
 
  taglist = [
@@ -50,14 +46,12 @@ locals {
           }
 }
 
-//data "vsphere_tag_category" "category" {
-//  count = length(local.tagmap)
-//  name  = keys(local.tagmap)[count.index]
-//}
-
+#creates category for each tag
+#categiry is tag name/key
 resource "vsphere_tag_category" "category" {
-  name        = "waiops-ia-category"
-  cardinality = "MULTIPLE"
+  count       = length(local.tagmap)
+  name        = keys(local.tagmap)[count.index]
+  cardinality = "SINGLE"
   description = "Managed by IBM WAIOPS IA"
 
   associable_types = [
@@ -65,10 +59,12 @@ resource "vsphere_tag_category" "category" {
   ]
 }
 
+#add tag values to tag categories (keys)
 resource "vsphere_tag" "tag" {
   count = length(local.tagmap)
   name = values(local.tagmap)[count.index]
-  category_id = "${vsphere_tag_category.category.id}"
+  category_id = "${vsphere_tag_category.category[count.index].id}"
+  
 }
 
 ##############################################################
