@@ -46,21 +46,15 @@ locals {
           }
 }
 
-#creates category for each tag
-#categiry is tag name/key
-resource "vsphere_tag_category" "category" {
+#tag categories and tags
+#categories must exist
+data "vsphere_tag_category" "category" {
   count       = length(local.tagmap)
   name        = keys(local.tagmap)[count.index]
-  cardinality = "SINGLE"
-  description = "Managed by IBM WAIOPS IA"
-
-  associable_types = [
-    "VirtualMachine"
-  ]
 }
 
 #add tag values to tag categories (keys)
-resource "vsphere_tag" "tag" {
+data "vsphere_tag" "tag" {
   count = length(local.tagmap)
   name = values(local.tagmap)[count.index]
   category_id = "${vsphere_tag_category.category[count.index].id}"
