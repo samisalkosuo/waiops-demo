@@ -54,7 +54,7 @@ data "vsphere_tag_category" "category" {
 }
 
 #add tag values to tag categories (keys)
-data "vsphere_tag" "tag" {
+resource "vsphere_tag" "tag" {
   count = length(local.tagmap)
   name = values(local.tagmap)[count.index]
   category_id = "${data.vsphere_tag_category.category[count.index].id}"
@@ -105,7 +105,7 @@ resource "vsphere_virtual_machine" "vm_1" {
   guest_id         = data.vsphere_virtual_machine.vm_1_template.guest_id
   scsi_type        = data.vsphere_virtual_machine.vm_1_template.scsi_type
   firmware         = var.vm_1-firmware
-  tags             = data.vsphere_tag.tag.*.id
+  tags             = vsphere_tag.tag.*.id
   clone {
     template_uuid = data.vsphere_virtual_machine.vm_1_template.id
 
