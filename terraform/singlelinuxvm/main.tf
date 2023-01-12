@@ -46,21 +46,6 @@ locals {
           }
 }
 
-#tag categories and tags
-#categories must exist
-data "vsphere_tag_category" "category" {
-  count       = length(local.tagmap)
-  name        = keys(local.tagmap)[count.index]
-}
-
-#add tag values to tag categories (keys)
-resource "vsphere_tag" "tag" {
-  count = length(local.tagmap)
-  name = values(local.tagmap)[count.index]
-  category_id = "${data.vsphere_tag_category.category[count.index].id}"
-  
-}
-
 ##############################################################
 # Define pattern variables 
 ##############################################################
@@ -105,7 +90,7 @@ resource "vsphere_virtual_machine" "vm_1" {
   guest_id         = data.vsphere_virtual_machine.vm_1_template.guest_id
   scsi_type        = data.vsphere_virtual_machine.vm_1_template.scsi_type
   firmware         = var.vm_1-firmware
-  tags             = vsphere_tag.tag.*.id
+
   clone {
     template_uuid = data.vsphere_virtual_machine.vm_1_template.id
 
