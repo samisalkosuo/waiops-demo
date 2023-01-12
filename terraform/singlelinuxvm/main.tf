@@ -31,6 +31,8 @@ variable "service_tag_includes" {
 
 #Filter tags passed by service.
 #create local variables from tags
+#variables can be used in VSphere tags or custom attributes
+#see Terraform documentation how to use
 locals {
 
  taglist = [
