@@ -104,9 +104,11 @@ variable "vm_1_root_disk_size" {
 variable "vm_1-image" {
   description = "Operating system image id / template that should be used when creating the virtual image"
 }
-
 	
 variable "vm_1-firmware" {
   description = "Virtual machine firmware (BIOS or EFI)"
+}
 
+variable "vm_1_annotation" {
+  description = "Virtual machine annotation ie. notes"
 }

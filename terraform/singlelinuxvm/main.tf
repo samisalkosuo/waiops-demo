@@ -90,7 +90,7 @@ resource "vsphere_virtual_machine" "vm_1" {
   guest_id         = data.vsphere_virtual_machine.vm_1_template.guest_id
   scsi_type        = data.vsphere_virtual_machine.vm_1_template.scsi_type
   firmware         = var.vm_1-firmware
-
+  annotation       = var.vm_1_annotation
   clone {
     template_uuid = data.vsphere_virtual_machine.vm_1_template.id
 

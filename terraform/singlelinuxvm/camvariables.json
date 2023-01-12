@@ -9,10 +9,6 @@
       "label": "Cloud Input Variables"
     },
     {
-      "name": "ssh_keys",
-      "label": "SSH Keys"
-    },
-    {
       "name": "virtualmachine",
       "label": "Virtual Machine Input Variables"
     },
@@ -373,8 +369,19 @@
       "required": true,
       "immutable": false,
       "group_name": "virtualmachine"
+    },
+    {
+      "name": "vm_1_annotation",
+      "type": "string",
+      "description": "Virtual machine annotation ie. notes",
+      "default": "Virtual machine created by IBM CAM and Terraform",
+      "hidden": false,
+      "label": "Virtual machine notes - vm_1",
+      "secured": false,
+      "required": false,
+      "immutable": false,
+      "group_name": "virtualmachine"
     }
-
   ],
   "template_output_params": [
     {
