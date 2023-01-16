@@ -331,7 +331,7 @@
           "templates": [
             {
               "SingleLinuxVirtualMachine": {
-                "title": "LinuxVM",
+                "title": "Provision Linux VM",
                 "template_name": "SingleLinuxVirtualMachine",
                 "version": "main",
                 "id": "singleliea1b82d1",
@@ -366,7 +366,8 @@
                   "vm_1_datacenter": "${input_parameters.vmsphere-info.datacenter}",
                   "vm_1_folder": "${input_parameters.vmsphere-info.folder}",
                   "vm_1_adapter_type": "vmxnet3",
-                  "vm_1_resource_pool": "${input_parameters.vmsphere-info.resourcepool}"
+                  "vm_1_resource_pool": "${input_parameters.vmsphere-info.resourcepool}",
+                  "vm_1_annotation": "Virtual machine created by IBM CAM and Terraform"
                 },
                 "outputs": [
                   "vm_1_ip-address"
@@ -624,6 +625,158 @@
           }
         ],
         "datatypes": []
+      },
+      {
+        "type": "custom",
+        "name": "Install NMAP",
+        "description": "Install NMAP package.",
+        "input_parameters": [],
+        "flow": {
+          "conditions": [],
+          "templates": [
+            {
+              "Inventory": {
+                "title": "Inventory_346012",
+                "template_name": "Inventory",
+                "version": "1.0",
+                "id": "inventordf46082d",
+                "template_type": "ANSIBLE",
+                "template_content_type": "ANSIBLE",
+                "template_provider": "ANSIBLE",
+                "instance_name": "",
+                "cloud_connection_name": "awx-local",
+                "template_data_objects": {},
+                "template_params": {
+                  "inventoryName": "",
+                  "extraVars": {},
+                  "hostgroup": {
+                    "None": "${svc_instance.output_parameters.vm-ip-address}"
+                  },
+                  "organizationName": "Default"
+                },
+                "outputs": [
+                  "inventory_name"
+                ],
+                "editable": true,
+                "provider_engine_version": "1.0",
+                "use_compatible_version": true,
+                "isErrorFlow": false
+              }
+            },
+            {
+              "Install DNF/YUM package": {
+                "title": "Install NMAP",
+                "template_name": "Install DNF/YUM package",
+                "version": "1.0",
+                "id": "installd5f27e992",
+                "template_type": "ANSIBLE",
+                "template_content_type": "ANSIBLE",
+                "template_provider": "ANSIBLE",
+                "instance_name": "",
+                "cloud_connection_name": "awx-local",
+                "template_data_objects": {},
+                "template_params": {
+                  "inventory_name": "${templates.inventordf46082d.output.inventory_name}",
+                  "credential_name": "Rocky Linux Credential",
+                  "extra_variables": {
+                    "package_name": "nmap"
+                  },
+                  "limit": "1"
+                },
+                "outputs": [
+                  "job_status"
+                ],
+                "editable": true,
+                "use_compatible_version": true,
+                "isErrorFlow": false
+              }
+            }
+          ],
+          "resthooks": [],
+          "notifications": [],
+          "sequence": {
+            "0": "inventordf46082d",
+            "1": "installd5f27e992"
+          },
+          "error_sequence": {}
+        },
+        "output_parameters": []
+      },
+      {
+        "type": "custom",
+        "name": "Remove NMAP",
+        "description": "Remove NMAP",
+        "input_parameters": [],
+        "flow": {
+          "conditions": [],
+          "templates": [
+            {
+              "Inventory": {
+                "title": "Inventory_81f0a1",
+                "template_name": "Inventory",
+                "version": "1.0",
+                "id": "inventor6d795b9b",
+                "template_type": "ANSIBLE",
+                "template_content_type": "ANSIBLE",
+                "template_provider": "ANSIBLE",
+                "instance_name": "",
+                "cloud_connection_name": "awx-local",
+                "template_data_objects": {},
+                "template_params": {
+                  "inventoryName": "",
+                  "extraVars": {},
+                  "hostgroup": {
+                    "None": "${svc_instance.output_parameters.vm-ip-address}"
+                  },
+                  "organizationName": "Default"
+                },
+                "outputs": [
+                  "inventory_name"
+                ],
+                "editable": true,
+                "provider_engine_version": "1.0",
+                "use_compatible_version": true,
+                "isErrorFlow": false
+              }
+            },
+            {
+              "Remove DNF/YUM package": {
+                "title": "Remove NMAP",
+                "template_name": "Remove DNF/YUM package",
+                "version": "1.0",
+                "id": "removedn6839f31d",
+                "template_type": "ANSIBLE",
+                "template_content_type": "ANSIBLE",
+                "template_provider": "ANSIBLE",
+                "instance_name": "",
+                "cloud_connection_name": "awx-local",
+                "template_data_objects": {},
+                "template_params": {
+                  "inventory_name": "${templates.inventor6d795b9b.output.inventory_name}",
+                  "credential_name": "Rocky Linux Credential",
+                  "extra_variables": {
+                    "package_name": "nmap"
+                  },
+                  "limit": "1"
+                },
+                "outputs": [
+                  "job_status"
+                ],
+                "editable": true,
+                "use_compatible_version": true,
+                "isErrorFlow": false
+              }
+            }
+          ],
+          "resthooks": [],
+          "notifications": [],
+          "sequence": {
+            "0": "inventor6d795b9b",
+            "1": "removedn6839f31d"
+          },
+          "error_sequence": {}
+        },
+        "output_parameters": []
       }
     ],
     "plans": [
